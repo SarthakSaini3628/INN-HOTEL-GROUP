@@ -10,7 +10,7 @@ with open('final_model_xgb.pkl','rb') as file:
 with open('transformer.pkl','rb') as file:
     pt = pickle.load(file)
 
-def %prediction(input_list):
+def prediction(input_list):
 
     input_list = np.array(input_list,dtype=object)
 
