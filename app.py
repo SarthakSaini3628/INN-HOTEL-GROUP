@@ -17,9 +17,9 @@ def prediction(input_list):
     pred = model.predict_proba([input_list])[:,1][0]
 
 if pred>0.5:
-    return f'This booking is more likely to get canceled chances{round(pred,2)}'
+    return f'This booking is more likely to get canceled: chances{round(pred,2)}'
 else:
-    return f'This booking is less likely to get canceled chances{round(pred,2)}'
+    return f'This booking is less likely to get canceled: chances{round(pred,2)}'
 
 def main():
     st.title('INN HOTEL GROUP')
@@ -36,7 +36,7 @@ def main():
     wkday_lambda = (lambda x:0 if x=='Mon' else 1 if x=='Tue' else 2 if x=='Wed' else 3 if x=='Thus' else 4 if x=='Fri' else 5 if x=='Sat' else 6)
     wkday = wkday_lambda(st.selectbox('What is the weekday of arrival',['Mon','Tue','Wed','Thus','Fri','Sat']))
 
-    tran_data = pt.transform([[lt,price]])
+    tran_data = pt.transform([[float(lt),float(price)]])
     lt_t = tran_data[0][0]
     price_t = tran_data[0][1]
 
