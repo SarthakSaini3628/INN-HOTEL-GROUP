@@ -16,10 +16,10 @@ def prediction(input_list):
 
     pred = model.predict_proba([input_list])[:,1][0]
 
-if pred>0.5:
-    return f'This booking is more likely to get canceled: chances{round(pred,2)}'
-else:
-    return f'This booking is less likely to get canceled: chances{round(pred,2)}'
+    if pred>0.5:
+        return f'This booking is more likely to get canceled: chances{round(pred,2)}'
+    else:
+        return f'This booking is less likely to get canceled: chances{round(pred,2)}'
 
 def main():
     st.title('INN HOTEL GROUP')
@@ -42,9 +42,9 @@ def main():
 
     inp_list = [lt,mst,spcl,price_t,adult,wkd,park,wk,month,day,wkday]
 
-if st.button('Predict'):
-    response = prediction(inp_list)
-    st.success(response)
+    if st.button('Predict'):
+        response = prediction(inp_list)
+        st.success(response)
 
 if __name__ == '__main__':
     main()
