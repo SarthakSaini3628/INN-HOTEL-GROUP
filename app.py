@@ -12,7 +12,7 @@ with open('transformer.pkl','rb') as file:
 
 def prediction(input_list):
 
-    input_list = np.array(input_list,dtype=object)
+    input_list = np.array(input_list,dtype=float)
 
     pred = model.predict_proba([input_list])[:,1][0]
 
@@ -36,7 +36,14 @@ def main():
     wkday_lambda = (lambda x:0 if x=='Mon' else 1 if x=='Tue' else 2 if x=='Wed' else 3 if x=='Thus' else 4 if x=='Fri' else 5 if x=='Sat' else 6)
     wkday = wkday_lambda(st.selectbox('What is the weekday of arrival',['Mon','Tue','Wed','Thus','Fri','Sat']))
 
-    tran_data = pt.transform([[float(lt),float(price)]])
+try:
+    lt_float = float(lt)
+    price_float = float(price)
+    wkd_float = float(wkd)
+    wk_float = float(wk)
+    
+    
+    tran_data = pt.transform([[lt_float,price_float]])
     lt_t = tran_data[0][0]
     price_t = tran_data[0][1]
 
@@ -45,6 +52,9 @@ def main():
     if st.button('Predict'):
         response = prediction(inp_list)
         st.success(response)
+        
+except ValueError:
+    st.error("Please enter valid numeric inputs for Lead Time, Price, Weekend Nights, and Weekday Nights.")
 
 if __name__ == '__main__':
     main()
